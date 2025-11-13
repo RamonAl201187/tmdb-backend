@@ -9,7 +9,15 @@ load_dotenv()
 
 # --- 1. Inicialización de Flask y CORS ---
 app = Flask(__name__)
-CORS(app) 
+
+# CORS configurado para permitir peticiones desde cualquier origen
+CORS(app, resources={
+    r"/api/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # --- 2. Conexión a MongoDB Atlas ---
 MONGO_URI = os.getenv('MONGO_URI')
